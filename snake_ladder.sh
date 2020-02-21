@@ -14,12 +14,20 @@ function dieroll() {
 
 #function to check for options in case of no play, ladder, or snake
 function optioncheck() {
+	while [[ $current_pos -le $winning_pos ]]
+	do
 	options=$(( RANDOM % 3 + 1 ))
 	echo $options
-	case $options in 
+	case $options in
 		1) current_pos=$current_pos;; #no play
 		2) current_pos=$(( $current_pos + $(dieroll) ));; # ladder
 		3) current_pos=$(( $current_pos - $(dieroll) ));; # snake
 	esac
+	if [ $current_pos -lt 0 ]
+	then
+		current_pos =0
+	fi
+	done
+	echo $current_pos
 }
 
